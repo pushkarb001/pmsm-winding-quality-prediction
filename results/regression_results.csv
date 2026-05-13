@@ -1,0 +1,17 @@
+Target,Model,R²,MAE,RMSE
+slot_fill_factor_pct,Linear Regression,0.9686,3.3336,4.1664
+slot_fill_factor_pct,Ridge Regression,0.9427,4.1823,5.6283
+slot_fill_factor_pct,Random Forest,0.9842,1.923,2.9523
+slot_fill_factor_pct,XGBoost,0.984,1.8819,2.9772
+winding_resistance_mOhm,Linear Regression,0.8375,452.0261,541.1691
+winding_resistance_mOhm,Ridge Regression,0.8349,456.6714,545.4071
+winding_resistance_mOhm,Random Forest,0.9957,48.9093,87.7192
+winding_resistance_mOhm,XGBoost,0.9902,68.0622,133.0808
+insulation_integrity_score,Linear Regression,0.6238,4.3985,5.3175
+insulation_integrity_score,Ridge Regression,0.6389,4.2856,5.2093
+insulation_integrity_score,Random Forest,0.6195,4.3329,5.3477
+insulation_integrity_score,XGBoost,0.6184,4.3287,5.3554
+process_stability_index,Linear Regression,-0.2289,0.03,0.038
+process_stability_index,Ridge Regression,-0.2159,0.0299,0.0378
+process_stability_index,Random Forest,-0.1476,0.0307,0.0367
+process_stability_index,XGBoost,-0.328,0.0327,0.0395
