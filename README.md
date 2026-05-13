@@ -100,39 +100,6 @@ and failure prediction is the most actionable finding — it points directly to
 pyrometry as the single most critical sensor for an inline insulation monitoring 
 system.
 
-## Repository Structure
-
-```
-pmsm-winding-quality-prediction/
-├── data/
-│   ├── raw/
-│   │   └── pmsm_winding_process_data.csv    ← 500 samples, 30 features
-│   └── processed/
-│       ├── train.csv                         ← 350 samples (70%)
-│       ├── val.csv                           ← 75 samples (15%)
-│       └── test.csv                          ← 75 samples (15%)
-├── notebooks/
-│   ├── 01_EDA.ipynb                          ← Exploratory data analysis
-│   ├── 02_FeatureEngineering.ipynb           ← Feature pipeline
-│   ├── 03_Regression.ipynb                   ← Regression models
-│   ├── 04_Classification.ipynb               ← Failure classification
-│   └── 05_FeatureImportance.ipynb            ← SHAP analysis
-├── src/
-│   ├── inline_monitor.py                     ← Real-time monitoring script
-│   ├── standard_scaler.pkl                   ← Fitted scaler
-│   ├── feature_list.txt                      ← 44 model features
-│   ├── best_regression_models.pkl            ← Trained regressors
-│   └── best_classifier.pkl                   ← Trained classifier
-├── results/
-│   └── plots/                                ← All generated figures
-├── docs/
-│   └── inline_monitoring_concept.md          ← System architecture & concept
-├── requirements.txt
-└── README.md
-```
-
----
-
 ## How to Run
 
 ### 1. Clone and set up environment
