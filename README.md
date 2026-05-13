@@ -1,11 +1,5 @@
 # PMSM Winding Process — Data-Driven Quality Prediction
 
-![Python](https://img.shields.io/badge/Python-3.12-blue)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.8-orange)
-![XGBoost](https://img.shields.io/badge/XGBoost-2.0-green)
-![SHAP](https://img.shields.io/badge/SHAP-analysis-red)
-![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
-
 A data-driven process model that predicts winding quality outcomes in PMSM (Permanent Magnet Synchronous Motor) stator manufacturing — using machine process signals to enable inline quality monitoring without destructive testing.
 
 ---
