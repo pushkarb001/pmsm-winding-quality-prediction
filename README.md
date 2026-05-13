@@ -37,43 +37,28 @@ Synthetic but physically realistic dataset of **500 winding experiments** with *
 
 ## Methodology
 
-```
-Raw Data (500 samples, 30 cols)
-        ↓
-Exploratory Data Analysis
-  • Distribution analysis, correlation heatmap
-  • Signal group correlation with targets
-  • ANOVA by coil former material
-        ↓
-Feature Engineering (23 → 44 features)
-  • 9 physics-motivated derived features
-  • Log transformation of skewed signals
-  • One-hot encoding of categorical variables
-  • StandardScaler (fit on training data only)
-        ↓
-Train / Val / Test Split (70 / 15 / 15) — stratified
-        ↓
-Model Training & Comparison
-  • Linear / Ridge Regression
-  • Random Forest
-  • XGBoost
-        ↓
-Validation
-  • 5-Fold Cross-Validation
-  • Hold-out test set evaluation
-  • Learning curve analysis
-        ↓
-Feature Importance (SHAP)
-  • Per-target feature ranking
-  • Signal group contribution analysis
-  • Dependence plots
-        ↓
-Inline Monitoring Concept
-  • Real-time prediction script
-  • PASS / WARN / FAIL verdict system
-```
+## Methodology
 
----
+## Methodology
+
+The dataset was synthetically generated to simulate realistic PMSM winding process 
+conditions, with physically motivated signal ranges and five injected anomaly types 
+based on known failure modes in motor manufacturing. All modelling and analysis 
+decisions from this point were made independently based on what the data showed.
+
+Wire tension, spindle power, and temperature signals are extracted as statistical 
+features per winding cycle. Nine additional features are derived from physical process 
+knowledge, for example combining wire cross-sectional area, number of turns, and slot 
+geometry into a theoretical slot density index that directly captures the geometric 
+limit of how tightly a slot can be packed.
+
+Features are scaled using StandardScaler fitted exclusively on training data to prevent 
+leakage, then split 70/15/15 into train, validation and test sets with stratification on 
+the failure label. Four regression models predict continuous quality outcomes and a 
+classifier predicts binary insulation failure, both evaluated with 5-fold cross-validation 
+and a held-out test set. SHAP analysis identifies which signal groups drive each quality 
+target, forming the basis of sensor priority recommendations in the inline monitoring concept.
+
 
 ## Results
 
@@ -96,10 +81,8 @@ Inline Monitoring Concept
 
 ### Key Findings
 
-- **Slot fill factor and winding resistance are highly predictable** (R² > 0.98) from process signals alone — enabling reliable inline geometric and electrical quality estimation
-- **Insulation failure is moderately predictable** (AUC 0.67) — temperature signals are the dominant predictor, suggesting pyrometry is the highest-value sensor for failure prevention
-- **Process stability proved unpredictable** (R² < 0) from the available signals — indicating that additional sensors (vibration, acoustic emission) would be needed for this target
-- **Feature engineering added significant value** — derived features (slot density index, tension variability ratio) outperformed all raw signal groups in SHAP importance
+The slot fill and resistance models performed well beyond expectation — R² above 0.98 in both cases— largely because the slot density index derived feature encodes the core geometric relationship directly. 
+Insulation integrity was harder to predict (R² 0.64), which I initially expected to improve with more complex models, but Ridge Regression outperformed Random Forest here suggesting the relationship is approximately linear. Process stability was unpredictable from the available signals entirely — rather than tuning further I treated this as a finding and recommended additional vibration sensors in the monitoring concept document.
 
 ### SHAP Feature Importance — Top Predictors per Target
 
@@ -111,7 +94,15 @@ Inline Monitoring Concept
 | Process stability | log_tension_variability_ratio | tension_variability_ratio | power_instability_idx |
 | Insulation failure | temp_max_C | winding_temperature_C | log_temp_time_above_60s |
 
----
+The SHAP results confirmed most of what the correlation analysis suggested, 
+with one surprise — derived features dominated over raw signals for slot fill 
+factor, with slot_density_idx ranking above all original sensor readings. 
+This validated the feature engineering approach more strongly than I expected.
+
+Temperature features appearing as top predictors for both insulation integrity 
+and failure prediction is the most actionable finding — it points directly to 
+pyrometry as the single most critical sensor for an inline insulation monitoring 
+system.
 
 ## Repository Structure
 
@@ -174,22 +165,6 @@ python inline_monitor.py                        # process 10 random samples
 python inline_monitor.py --n 20                 # process 20 samples
 python inline_monitor.py --sample_id PMSM_0042  # specific sample
 ```
-
----
-
-## Relevance to Process Monitoring Research
-
-This project demonstrates the core methodological skills required for data-based process modelling in manufacturing:
-
-- **Signal feature extraction** from tension, power and thermal process signals
-- **Physics-motivated feature engineering** that outperforms raw signal features
-- **Multi-target regression and classification** with rigorous cross-validation
-- **SHAP-based feature importance** identifying the most predictive signal sources
-- **Inline applicability concept** with latency analysis and threshold design
-
-The negative R² for process stability and moderate AUC for failure classification are honest results that point toward concrete sensor recommendations — which is the kind of finding that drives real engineering decisions in process monitoring system design.
-
----
 
 ## Dependencies
 
