@@ -37,10 +37,6 @@ Synthetic but physically realistic dataset of **500 winding experiments** with *
 
 ## Methodology
 
-## Methodology
-
-## Methodology
-
 The dataset was synthetically generated to simulate realistic PMSM winding process 
 conditions, with physically motivated signal ranges and five injected anomaly types 
 based on known failure modes in motor manufacturing. All modelling and analysis 
